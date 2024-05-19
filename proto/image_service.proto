@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package ImageService;
+
+// Настройки для генерации Go кода.
+option go_package = "service.image_container.v1;siv1";
+
+// Сообщение для представления изображения
+message Image {
+  string filename = 1; // Имя файла
+  bytes image_data = 2; // Бинарные данные изображения
+}
+
+// Сообщение для представления изображения
+message ImageNameFormat {
+  string filename = 1; // Имя файла
+  string created_at = 2; // Дата создания
+  string updated_at = 3; // Дата обновления
+}
+
+// Запрос списка изображений
+message ListImagesRequest {
+}
+
+
+// Ответ на запрос списка изображений
+message ListImagesResponse {
+  repeated ImageNameFormat images = 1; // Список изображений
+}
+
+// Запрос на загрузку изображения
+message UploadImageRequest {
+  Image image = 1; // Изображение для загрузки
+}
+
+// Ответ на запрос загрузки изображения
+message UploadImageResponse {
+  string filename = 1; // Имя файла на сервере
+}
+
+// Запрос на скачивание изображения
+message DownloadImageRequest {
+  string filename = 1; // Имя файла на сервере
+}
+
+// Ответ на запрос скачивания изображения
+message DownloadImageResponse {
+  bytes image_data = 1; // Данные изображения
+}
+
+// Сервис для работы с изображениями
+service ImageService {
+  // Метод для загрузки изображения
+  rpc UploadImage(UploadImageRequest) returns (UploadImageResponse);
+  // Метод для скачивания изображения
+  rpc DownloadImage(DownloadImageRequest) returns (DownloadImageResponse);
+  // Метод для получения списка изображений
+  rpc ListImages(ListImagesRequest) returns (ListImagesResponse);
+}

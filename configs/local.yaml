@@ -1,0 +1,10 @@
+badger:
+  path: "/var/tagetest/images"
+server:
+  port: 8080
+  read_timeout: 5s
+  write_timeout: 10s
+  idle_timeout: 120s
+  shutdown_timeout: 20s
+  limit_concurrent_file_request: 10
+  limit_concurrent_listing_request: 100
